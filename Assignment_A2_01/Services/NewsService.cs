@@ -46,7 +46,7 @@ namespace Assignment_A2_01.Services
 
             Article article = new Article();
             article.Title = ndList.Title;
-            article.Description = ndList.Description;
+            //article.Description = ndList.Description;
             return article;
         }
 

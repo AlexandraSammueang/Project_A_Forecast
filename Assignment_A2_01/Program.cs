@@ -26,7 +26,7 @@ namespace Assignment_A2_01
                 Console.WriteLine("Top headlines");
                 foreach (var item in newsApi.Articles)
                 {
-                    Console.WriteLine($"{item.Title} {newsApi.Status}");
+                    Console.WriteLine($"{item.Title} {newsApi.Status} ");
                 }
                   
                 
