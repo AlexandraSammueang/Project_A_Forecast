@@ -17,6 +17,7 @@ namespace Assignment_A1_03
     {
         static void Main(string[] args)
         {
+         
             //Register the event
             OpenWeatherService service = new OpenWeatherService();
             service.WeatherForecastAvailable += ReportWeatherDataAvailable;
