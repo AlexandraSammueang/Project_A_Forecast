@@ -36,19 +36,19 @@ namespace Assignment_A2_01.Services
 
             newsapidata.Articles = new List<Article>();
 
-            nd.Articles.ForEach(wdListItem => { newsapidata.Articles.Add(GetNewsArticle(wdListItem)); });
+            nd.Articles.ForEach(a => { newsapidata.Articles.Add(a);});
 
             return newsapidata;
         }
 
-        private Article GetNewsArticle(Article ndList)
-        {
+        //private Article GetNewsArticle(Article ndList)
+        //{
 
-            Article article = new Article();
-            article.Title = ndList.Title;
-            //article.Description = ndList.Description;
-            return article;
-        }
+        //    Article article = new Article();
+        //    article.Title = ndList.Title;
+        //    //article.Description = ndList.Description;
+        //    return article;
+        //}
 
     }
 }

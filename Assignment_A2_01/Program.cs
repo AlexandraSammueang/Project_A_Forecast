@@ -19,7 +19,7 @@ namespace Assignment_A2_01
 
             Task.WaitAll(t1);
 
-            Console.WriteLine("-----------------");
+           
             if (t1?.Status == TaskStatus.RanToCompletion)
             {
                 NewsApiData newsApi = t1.Result;
@@ -33,7 +33,7 @@ namespace Assignment_A2_01
             }
             else
             {
-                Console.WriteLine($"Geolocation news service error.");
+                Console.WriteLine($"News service error.");
             }
 
         }
