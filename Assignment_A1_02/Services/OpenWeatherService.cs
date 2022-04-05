@@ -68,6 +68,7 @@ namespace Assignment_A1_02.Services
             forecast.Items = new List<ForecastItem>();
 
             wd.list.ForEach(wdListItem => { forecast.Items.Add(GetForecastItem(wdListItem)); });
+
             return forecast;
         }
 

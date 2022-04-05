@@ -9,5 +9,6 @@ namespace Assignment_A2_03.Models
         public string Description { get; set; }
         public string Url { get; set; }
         public string UrlToImage { get; set; }
+        public DateTime PublishedAt { get; internal set; }
     }
 }

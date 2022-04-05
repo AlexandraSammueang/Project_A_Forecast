@@ -11,19 +11,37 @@ namespace Assignment_A2_02
         static void Main(string[] args)
         {
             NewsService service = new NewsService();
+
+            service.NewsAvailable += ReportNewsDataAvailable;
+            Task<News> t1 = null;
+            Exception exception = null;
+
+            try 
+            {
+                for (NewsCategory i = NewsCategory.business; i < NewsCategory.technology + 1; i++)
+                {
+                    t1 = service.GetNewsAsync(i);
+
+                }  
+                Task.WaitAll(t1);
+
+            }
+            catch (Exception ex)
+            {
+                //if exception write the message later
+                exception = ex;
+            }
             Console.WriteLine("---------------------------");
             for (NewsCategory i = NewsCategory.business; i < NewsCategory.technology + 1; i++)
             {
-                Task<News> t1 = service.GetNewsAsync(i);
-                Task.WaitAll(t1);
-
+                //t2 = service.GetNewsAsync(i);
+                Console.WriteLine($"News in Category {i}");
                 if (t1?.Status == TaskStatus.RanToCompletion)
                 {
-                    News news2 = t1.Result;
-                    Console.WriteLine($"News in Category {i}");
+                    News news = t1.Result;
 
-                    news2.Articles.ForEach(a => Console.WriteLine($" - {a.DateTime.ToString("yyyy-MM-dd HH:mm-ss")}\t: {a.Title}"));
-                   
+                    news.Articles.ForEach(a => Console.WriteLine($" - {a.DateTime.ToString("yyyy-MM-dd HH:mm-ss")}\t: {a.Title}"));
+
                 }
                 else
                 {
@@ -31,10 +49,12 @@ namespace Assignment_A2_02
                 }
 
             }
+           
 
-
-
-
+        }
+        static void ReportNewsDataAvailable(object sender, string message)
+        {
+            Console.WriteLine($"Event message from news service: {message}");
         }
     }
 }
