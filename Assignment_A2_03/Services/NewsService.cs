@@ -76,7 +76,7 @@ namespace Assignment_A2_03.Services
 
             NewsApiData nd = await response.Content.ReadFromJsonAsync<NewsApiData>();
 
-            //Your Code to convert WeatherApiData to Forecast using Linq.
+           
             News news = new News();
 
             news.Articles = new List<NewsItem>();
@@ -84,7 +84,6 @@ namespace Assignment_A2_03.Services
             nd.Articles.ForEach(a => { news.Articles.Add(GetNewsItem(a)); });
 
               return news;
-
 
         }
 
