@@ -15,8 +15,7 @@ namespace Assignment_A2_04
             service.NewsAvailable += ReportNewsDataAvailable;
             Task<News> t1 = null, t2 = null;
             Exception exception = null;
-
-          
+ 
             try
             {
                 for (NewsCategory i = NewsCategory.business; i < NewsCategory.technology + 1; i++)
@@ -35,7 +34,7 @@ namespace Assignment_A2_04
             }
             catch (Exception ex)
             {
-                //if exception write the message later
+         
                 exception = ex;
             }
             Console.WriteLine("---------------------------");
@@ -47,7 +46,7 @@ namespace Assignment_A2_04
                 {
                     News news = t1.Result;
 
-                    news.Articles.ForEach(a => Console.WriteLine($" - {a.DateTime.ToString("yyyy-MM-dd HH:mm-ss")}\t: {a.Title}"));
+                    news.Articles.ForEach(a => Console.WriteLine($" - {a.DateTime.ToString("yyyy-MM-dd HH:mm")}\t: {a.Title}"));
 
                 }
                 else

@@ -19,7 +19,7 @@ namespace Assignment_A2_04.Models
         public string Key => category.ToString() + timewindow;
         public bool CacheExist => File.Exists(FileName);
 
-        public NewsCacheKey(NewsCategory category, DateTime dt)
+        public NewsCacheKey(NewsCategory category)
         {
             this.category = category;
             timewindow = DateTime.Now.ToString("yyyy-MM-dd-HH-mm");

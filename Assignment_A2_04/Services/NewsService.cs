@@ -1,6 +1,4 @@
-﻿#define UseNewsApiSample  // Remove or undefine to use your own code to read live data
-
-using Assignment_A2_04.Models;
+﻿using Assignment_A2_04.Models;
 using Assignment_A2_04.ModelsSampleData;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.SqlServer.Server;
@@ -9,7 +7,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
-using System.Net.Http.Json; //Requires nuget package System.Net.Http.Json
+using System.Net.Http.Json; 
 using System.Threading.Tasks;
 
 namespace Assignment_A2_04.Services
@@ -19,23 +17,13 @@ namespace Assignment_A2_04.Services
       
         public EventHandler<string> NewsAvailable;
         HttpClient httpClient = new HttpClient();
-        readonly string apiKey = "cc40f1dc262e435b979752a8a9845a75";
+        readonly string apiKey = /*"cc40f1dc262e435b979752a8a9845a75"*/"fcea3dbaa815400ab5df3d397e7784a3";
 
         public async Task<News> GetNewsAsync(NewsCategory category)
         {
-#if UseNewsApiSample      
-            //NewsApiData nd = await NewsApiSampleData.GetNewsApiSampleAsync(category);
+            NewsApiData nd = await NewsApiSampleData.GetNewsApiSampleAsync(category);
 
-#else
-            //https://newsapi.org/docs/endpoints/top-headlines
-            var uri = $"https://newsapi.org/v2/top-headlines?country=se&category={category}&apiKey={apiKey}";
-
-           // Your code here to get live data
-
-#endif   
-            var dt = DateTime.Now;
-            
-            NewsCacheKey key = new(category, dt);
+            NewsCacheKey key = new(category);
             News news = null;
 
             if (!key.CacheExist)
@@ -78,13 +66,13 @@ namespace Assignment_A2_04.Services
 
         }
 
-        private NewsItem GetNewsItem(Article wdListItem)
+        private NewsItem GetNewsItem(Article newsListItem)
         {
             NewsItem newsitem = new NewsItem();
 
-            newsitem.DateTime = wdListItem.PublishedAt;
+            newsitem.DateTime = newsListItem.PublishedAt;
 
-            newsitem.Title = wdListItem.Title;
+            newsitem.Title = newsListItem.Title;
 
             return newsitem;
 

@@ -34,13 +34,12 @@ namespace Assignment_A2_03
             }
             catch (Exception ex)
             {
-                //if exception write the message later
                 exception = ex;
             }
             Console.WriteLine("---------------------------");
             for (NewsCategory i = NewsCategory.business; i < NewsCategory.technology + 1; i++)
             {
-                //t2 = service.GetNewsAsync(i);
+             
                 Console.WriteLine($"News in Category {i}");
                 if (t1?.Status == TaskStatus.RanToCompletion)
                 {

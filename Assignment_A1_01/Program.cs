@@ -19,7 +19,6 @@ namespace Assignment_A1_01
             double latitude = 59.5086798659495;
             double longitude = 18.2654625932976;
 
-            //var t1 = new OpenWeatherService().GetForecastAsync(latitude, longitude);
             OpenWeatherService service = new OpenWeatherService();
 
             Task<Forecast> t1 = service.GetForecastAsync(latitude, longitude);
