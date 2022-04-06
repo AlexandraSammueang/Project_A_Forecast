@@ -2,9 +2,12 @@
 
 using Assignment_A2_04.Models;
 using Assignment_A2_04.ModelsSampleData;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Json; //Requires nuget package System.Net.Http.Json
 using System.Threading.Tasks;
@@ -13,10 +16,11 @@ namespace Assignment_A2_04.Services
 {
     public class NewsService
     {
-        ConcurrentDictionary<(string, NewsCategory), News> _Cached1 = new ConcurrentDictionary<(string, NewsCategory), News>();
+      
         public EventHandler<string> NewsAvailable;
         HttpClient httpClient = new HttpClient();
         readonly string apiKey = "cc40f1dc262e435b979752a8a9845a75";
+
         public async Task<News> GetNewsAsync(NewsCategory category)
         {
 #if UseNewsApiSample      
@@ -28,35 +32,28 @@ namespace Assignment_A2_04.Services
 
            // Your code here to get live data
 
-#endif
-
-            //var uri = $"https://newsapi.org/v2/top-headlines?country=se&category={category}&apiKey={apiKey}";
-
-            //HttpResponseMessage response = await httpClient.GetAsync(uri);
-            //response.EnsureSuccessStatusCode();
-
-            //NewsApiData nd = await response.Content.ReadFromJsonAsync<NewsApiData>();
+#endif   
+            var dt = DateTime.Now;
+            
+            NewsCacheKey key = new(category, dt);
             News news = null;
 
-            string date = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
-            NewsCategory cat = category;
-            var key = (date, cat);
-
-
-            if (!_Cached1.TryGetValue(key, out news))
+            if (!key.CacheExist)
             {
 
                 var uri = $"https://newsapi.org/v2/top-headlines?country=se&category={category}&apiKey={apiKey}";
                 news = await ReadNewsApiAsync(uri);
-                _Cached1[key] = news;
+                News.Serialize(news, key.FileName);
                 OnNewsAvailable($"News in category availble:{category}");
             }
-
             else
-                OnNewsAvailable($"Cahced News in category availble:{category}");
-
+            {
+                News.Deserialize(key.FileName);
+                OnNewsAvailable($"XML Cached in category availble:{category}");
+            }
 
             return news;
+            
 
         }
         protected virtual void OnNewsAvailable(string c)
@@ -70,7 +67,6 @@ namespace Assignment_A2_04.Services
             response.EnsureSuccessStatusCode();
 
             NewsApiData nd = await response.Content.ReadFromJsonAsync<NewsApiData>();
-
 
             News news = new News();
 
@@ -93,6 +89,7 @@ namespace Assignment_A2_04.Services
             return newsitem;
 
         }
+     
 
     }
 }

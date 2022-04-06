@@ -19,7 +19,7 @@ namespace Assignment_A2_04.Models
         public string Key => category.ToString() + timewindow;
         public bool CacheExist => File.Exists(FileName);
 
-        public NewsCacheKey (NewsCategory category, DateTime dt)
+        public NewsCacheKey(NewsCategory category, DateTime dt)
         {
             this.category = category;
             timewindow = DateTime.Now.ToString("yyyy-MM-dd-HH-mm");
@@ -31,7 +31,7 @@ namespace Assignment_A2_04.Models
             if (!Directory.Exists(documentPath)) Directory.CreateDirectory(documentPath);
             return Path.Combine(documentPath, name);
         }
-      }
+    }
 
     [XmlRoot("News", Namespace = "http://mynamespace/test/")]
     public class News
