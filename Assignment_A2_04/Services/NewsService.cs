@@ -36,7 +36,7 @@ namespace Assignment_A2_04.Services
             }
             else
             {
-                News.Deserialize(key.FileName);
+                news = News.Deserialize(key.FileName);
                 OnNewsAvailable($"XML Cached in category availble:{category}");
             }
 
