@@ -31,7 +31,7 @@ namespace Assignment_A2_04.Services
 
                 var uri = $"https://newsapi.org/v2/top-headlines?country=se&category={category}&apiKey={apiKey}";
                 news = await ReadNewsApiAsync(uri);
-                News.Serialize(news, key.FileName);
+                News.Serialize(news, key.FileName); 
                 OnNewsAvailable($"News in category availble:{category}");
             }
             else
